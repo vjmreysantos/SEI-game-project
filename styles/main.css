@@ -59,3 +59,9 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+.grid div.mcqueen {
+  background-image: url('../assets/lightningMcqueen.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}

@@ -1,103 +1,101 @@
 const grid = document.querySelector('.grid')
-const scoreDisplay = document.querySelector('.scoreDisplay')
-const width = 10
-let currentIndex = 0
-let mcqueenIndex = 0
-let currentTow = [2, 1, 0]
-let direction = 1
-let score = 0
-const speed = 0
-let intervalTime = 0
-let interval = 0
+const cells = []
 
+const width = 20
+const cellCount = width * width
 
-
-function createBoard() {
-  for (let i = 0; i < 100; i++) {
-    const div = document.createElement('div')
-    grid.appendChild(div)
+function createGrid() {
+  for (let i = 0; i < cellCount; i++) {
+    const cell = document.createElement('div')
+    grid.appendChild(cell)
+    cells.push(cell)
   }
 }
 
-function randomMcqueen(squares) {
-  do {
-    mcqueenIndex = Math.floor(Math.random() * squares.length)
-  } while (squares[mcqueenIndex].classList.contains('tow'))
-  squares[mcqueenIndex].classList.add('mcqueen')
-}
 
-function startGame() {
+createGrid()
+
+document.addEventListener('DOMContentLoaded', () => {
   const squares = document.querySelectorAll('.grid div')
-  randomMcqueen(squares)
-  
-  direction = 1
-  scoreDisplay.innerHTML = score
-  intervalTime = 100
-  currentTow = [2, 1, 0]
-  currentIndex = 0
-  currentTow.forEach((index) => squares[index].classList.add('tow'))
-  interval = setInterval(moveOutcome, intervalTime)
-}
+  const scoreDisplay = document.querySelector('span')
+  const startBtn = document.querySelector('.start')
+
+  const currentIndex = 0
+  let lightningMcqueenIndex = 0
+  let towMaterIndex = [2, 1, 0]
+  let direction = 1
+  let score = 0
+  const speed = 20
+  let intervalTime = 0
+  let interval = 0
 
 
-function moveTow(squares) {
-  const tail = currentTow.pop()
-  squares[tail].classList.remove('tow')
-  currentTow.unshift(currentTow[0] + direction)
 
-  eatMcqueen(squares, tail)
-  squares[currentTow[0]].classList.add('tow')
-}
-
-
-function moveOutcome() {
-  const squares = document.querySelectorAll('.grid div')
-  if (checkForHits(squares)) {
-    alert('Game Over')
-    return clearInterval(interval)
-  } else {
-    moveTow(squares)
-  }
-}
-
-function checkForHits(squares) {
-  if (
-    (currentTow[0] + width >= width * width && direction === width),
-    (currentTow[0] % width === width - 1 && direction === 1),
-    (currentTow[0] % width === 0 && direction === -1),
-    (currentTow[0] - width <= 0 && direction === -width),
-    squares[currentTow[0] + direction].classList.contains('tow')
-  ) {
-    return true
-  }
-}
-
-function eatMcqueen(squares, tail) {
-  if (squares[currentTow[0]].classList.contains('mcqueen')) {
-    squares[currentTow[0]].classList.remove('mcqueen')
-    squares[tail].classList.add('mcqueen')
-    currentTow.push(tail)
-    randomMcqueen(squares)
-    score++
-    scoreDisplay.textContent = score
+  function startGame() {
+    towMaterIndex.forEach((index) => squares[index].classList.remove('towMater'))
+    squares[lightningMcqueenIndex].classList.remove('lightningMcqueen')
     clearInterval(interval)
-    interval = setInterval(moveOutcome, intervalTime)
-  }
-}
-
-function control(e) {
-  if (e.keyCode === 37) {
-    direction = -1
-  } else if (e.keyCode === 38) {
-    direction = -width
-  } else if (e.keyCode === 39) {
+    score = 0
+    randomLightningMcqueen()
     direction = 1
-  } else if (e.keyCode === 40) {
-    direction = +width
+    scoreDisplay.innerText = score
+    intervalTime = 500
+    towMaterIndex = [2, 1, 0]
+    towMaterIndex.forEach((index) => squares[index].classList.add('towMater'))
+    interval = setInterval(moveOutComes, intervalTime)
   }
-}
-document.addEventListener('DOMContentLoaded', function () {
+
+  function randomLightningMcqueen() {
+    do {
+      lightningMcqueenIndex = Math.floor(Math.random() * squares.length)
+    } while (squares[lightningMcqueenIndex].classList.contains('towMater'))
+    squares[lightningMcqueenIndex].classList.add('lightningMcqueen')
+  }
+
+  function moveOutComes() {
+    if (
+      (towMaterIndex[0] + width >= width * width && direction === width) ||
+      (towMaterIndex[0] % width === width - 1 && direction === 1) ||
+      (towMaterIndex[0] % width === 0 && direction === -1) ||
+      (towMaterIndex[0] - width < 0 && direction === -width) ||
+      squares[towMaterIndex[0] + direction].classList.contains('towMater')
+    ) {
+      alert('Game over!')
+      return clearInterval(interval)
+    }
+
+    const tail = towMaterIndex.pop()
+    squares[tail].classList.remove('towMater')
+    towMaterIndex.unshift(towMaterIndex[0] + direction)
+
+
+    if (squares[towMaterIndex[0]].classList.contains('lightningMcqueen')) {
+      squares[towMaterIndex[0]].classList.remove('lightningMcqueen')
+      squares[tail].classList.add('towMater')
+      towMaterIndex.push(tail)
+      randomLightningMcqueen()
+      score = score + 1000
+      scoreDisplay.textContent = score
+      clearInterval(interval)
+      intervalTime = intervalTime - speed
+      interval = setInterval(moveOutComes, intervalTime)
+    }
+    squares[towMaterIndex[0]].classList.add('towMater')
+  }
+
+  function control(e) {
+    squares[currentIndex].classList.remove('towMater')
+    if (e.keyCode === 39) {
+      direction = 1
+    } else if (e.keyCode === 38) {
+      direction = -width
+    } else if (e.keyCode === 37) {
+      direction = -1
+    } else if (e.keyCode === 40) {
+      direction = +width
+    }
+  }
+
   document.addEventListener('keyup', control)
-  createBoard()
-  startGame()
+  startBtn.addEventListener('click', startGame)
 })

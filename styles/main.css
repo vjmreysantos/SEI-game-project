@@ -38,10 +38,14 @@
 }
 
 .grid-wrapper {
+  background-image: url('../assets/radiator\ springs.jpg');
   margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-position: center;
+  background-size: 600px 600px;
+  background-repeat: no-repeat;
 }
 
 .grid {
@@ -56,15 +60,27 @@
 }
 
 .grid div {
-  height: 5%;
-  width: 5%;
+  height: 10%;
+  width: 10%;
 }
 
 .towMater {
-  background-image: url('../assets/tow-mater.png');
+  background-image: url('../assets/tow\ mater\ right.png');
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+/* .towMaterLeft {
+  background-image: url('../assets/tow\ mater\ left.gif');
+  background-repeat: no-repeat;
+  background-size: contain;
+} */
+
+/* .towMaterUpDown {
+  background-image: url('../assets/Tow\ Mater\ Front.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+} */
 
 .lightningMcqueen {
   background-image: url('../assets/lightningMcqueen.png');
@@ -72,3 +88,14 @@
   background-size: contain;
 }
 
+.oilSpill {
+  background-image: url('../assets/oil-spill.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.barrier {
+    background-image: url('../assets/barrier.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }

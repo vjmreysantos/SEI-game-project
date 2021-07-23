@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const squares = document.querySelectorAll('.grid div')
   const scoreDisplay = document.querySelector('span')
   const startBtn = document.querySelector('.start')
-  // const audioBtn = document.querySelector('.toggle-audio')
+  const audioBtn = document.querySelector('.toggle-audio')
 
   const currentIndex = 0
   let lightningMcqueenIndex = 0
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function startGame() {
     document.querySelector('.background').play()
-    document.querySelector('.background').volume = 1
+    document.querySelector('.background').volume = 0.1
     towMaterIndex.forEach((index) => squares[index].classList.add('towMater'))
     randomLightningMcqueen()
     randomOilSpill()
@@ -79,7 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ) {
 
       document.querySelector('.crash').play(),
+      document.querySelector('.crash').volume = 0.1,
       document.querySelector('.background').pause()
+
       const playAgain = window.confirm('Game Over! Try again?')
 
       if (!playAgain) {
@@ -95,21 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
     squares[tail].classList.remove('towMater')
     towMaterIndex.unshift(towMaterIndex[0] + direction)
 
-    if (squares[towMaterIndex[0]].classList.contains('oilSpill')) {
-      squares[towMaterIndex[0]].classList.remove('oilSpill')
-      document.querySelector('.splooge').play()
-      randomOilSpill()
-      score = score - 1000
-      scoreDisplay.textContent = score
-      clearInterval(interval)
-      intervalTime = 500
-      interval = setInterval(moveOutComes, intervalTime)
-    }
-
     if (squares[towMaterIndex[0]].classList.contains('lightningMcqueen')) {
       squares[towMaterIndex[0]].classList.remove('lightningMcqueen')
       document.querySelector('.beep').play()
-      squares[tail].classList.add('towMater')
+      document.querySelector('.beep').volume = 0.1
+      squares[tail].classList.add('lightningMcqueen')
       towMaterIndex.push(tail)
       randomLightningMcqueen()
       score = score + 1000
@@ -119,7 +111,20 @@ document.addEventListener('DOMContentLoaded', () => {
       interval = setInterval(moveOutComes, intervalTime)
     }
     squares[towMaterIndex[0]].classList.add('towMater')
+
+    if (squares[towMaterIndex[0]].classList.contains('oilSpill')) {
+      squares[towMaterIndex[0]].classList.remove('oilSpill')
+      document.querySelector('.splooge').play()
+      document.querySelector('.splooge').volume = 0.1
+      randomOilSpill()
+      score = score - 1000
+      scoreDisplay.textContent = score
+      clearInterval(interval)
+      intervalTime = 500
+      interval = setInterval(moveOutComes, intervalTime)
+    }
   }
+
 
   function control(e) {
     squares[currentIndex].classList.remove('towMater')
@@ -132,16 +137,22 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (e.keyCode === 40) {
       direction = +width
     } else {
-      e.preventDefault()
+      e.default()
       return false
     }
   }
 
-  // function toggleSound() {
-  //   document.querySelector('audio').pause()
-  // }
+  function muteBgMusic() {
+    if (document.querySelector('.background').play()) {
+      document.querySelector('.background').pause()
+    }
+  }
+
+  function changeText() {
+    document.getElementsByClassName('toggle-audio').innerHTML = '🔇'
+  }
 
   document.addEventListener('keyup', control)
   startBtn.addEventListener('click', startGame)
-  // audioBtn.addEventListener('click', toggleSound)
+  audioBtn.addEventListener('click', muteBgMusic, changeText())
 })

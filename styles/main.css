@@ -24,6 +24,7 @@ body {
   padding: 10px 20px;
   font-weight: bold;
   text-transform: uppercase;
+  font-size: 20px;
 }
 
 #span {
@@ -62,9 +63,11 @@ body {
 .toggle-audio {
   margin: 10px 50px;
   padding: 10px 20px;
-  border: none;
-  background: transparent;
-  font-size: x-large;
+  border-color: whitesmoke;
+  background-color: crimson;
+  color: white;
+  border-radius: 5px;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
@@ -73,18 +76,6 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
 }
-
-/* .towMaterLeft {
-  background-image: url('../assets/tow\ mater\ left.gif');
-  background-repeat: no-repeat;
-  background-size: contain;
-} */
-
-/* .towMaterUpDown {
-  background-image: url('../assets/Tow\ Mater\ Front.jpg');
-  background-repeat: no-repeat;
-  background-size: contain;
-} */
 
 .lightningMcqueen {
   background-image: url('../assets/lightningMcqueen.png');

@@ -1,7 +1,7 @@
 const grid = document.querySelector('.grid')
 const cells = []
 
-const width = 10
+const width = 20
 const cellCount = width * width
 
 function createGrid() {
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       squares[towMaterIndex[0]].classList.remove('lightningMcqueen')
       document.querySelector('.beep').play()
       document.querySelector('.beep').volume = 0.1
-      squares[tail].classList.add('lightningMcqueen')
+      squares[tail].classList.add('towMater')
       towMaterIndex.push(tail)
       randomLightningMcqueen()
       score = score + 1000
@@ -148,11 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function changeText() {
-    document.getElementsByClassName('toggle-audio').innerHTML = '🔇'
-  }
-
   document.addEventListener('keyup', control)
   startBtn.addEventListener('click', startGame)
-  audioBtn.addEventListener('click', muteBgMusic, changeText())
+  audioBtn.addEventListener('click', muteBgMusic)
 })

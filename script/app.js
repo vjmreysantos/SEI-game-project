@@ -1,7 +1,7 @@
 const grid = document.querySelector('.grid')
 const cells = []
 
-const width = 20
+const width = 10
 const cellCount = width * width
 
 function createGrid() {

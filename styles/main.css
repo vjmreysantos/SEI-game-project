@@ -83,12 +83,16 @@ body {
 
 .mid {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .bottom {
   display: flex;
   justify-content: center;
+}
+
+.arrow-up, .arrow-down, .arrow-left, .arrow-right {
+  font-size: 100px;
 }
 
 .towMater {

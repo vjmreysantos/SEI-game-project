@@ -11,11 +11,26 @@
     <div class="header">
     <button class="start">Start</button>
     <div class="score">Score: <span id="span">0</span></div>
-    <button class="settings">Settings</button>
+    <button class="toggle-audio">🔈</button>
     </div>
 
     <div class="grid-wrapper">
       <div class="grid"></div>
+    </div>
+
+    <div class="hidden-sound">
+      <audio class="beep" controls>
+        <source src="https://www.wavsource.com/snds_2020-10-01_3728627494378403/sfx/car_horn_x.wav" type="audio/mpeg">
+      </audio>
+      <audio class="crash" controls>
+        <source src="https://www.wavsource.com/snds_2020-10-01_3728627494378403/sfx/boom_x.wav" type="audio/mpeg">
+      </audio>
+      <audio class="splooge" controls>
+        <source src="https://www.wavsource.com/snds_2020-10-01_3728627494378403/sfx/splooge.wav" type="audio/mpeg">
+      </audio>
+      <audio class="background" controls loop>
+        <source src="https://mohamedelghandour.github.io/Snake/sound/backgroundmusic.mp3" type="audio/mpeg">
+      </audio>
     </div>
 
   </body>

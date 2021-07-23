@@ -1,3 +1,7 @@
+body {
+  background-color: #ff6666;
+}
+
 .header {
   display: flex;
   justify-content: center;
@@ -12,16 +16,7 @@
   color: white;
   border-radius: 5px;
   text-transform: uppercase;
-}
-
-.settings {
-  margin: 10px 50px;
-  padding: 10px 20px;
-  border-color: whitesmoke;
-  background-color: crimson;
-  color: white;
-  border-radius: 5px;
-  text-transform: uppercase;
+  cursor: pointer;
 }
 
 .score {
@@ -64,6 +59,15 @@
   width: 10%;
 }
 
+.toggle-audio {
+  margin: 10px 50px;
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  font-size: x-large;
+  cursor: pointer;
+}
+
 .towMater {
   background-image: url('../assets/tow\ mater\ right.png');
   background-repeat: no-repeat;
@@ -99,3 +103,7 @@
     background-repeat: no-repeat;
     background-size: contain;
   }
+
+  .hidden-sound {
+    display: none;
+}

@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const squares = document.querySelectorAll('.grid div')
   const scoreDisplay = document.querySelector('span')
   const startBtn = document.querySelector('.start')
+  // const audioBtn = document.querySelector('.toggle-audio')
 
   const currentIndex = 0
   let lightningMcqueenIndex = 0
@@ -31,8 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let interval = 0
 
 
-
   function startGame() {
+    document.querySelector('.background').play()
+    document.querySelector('.background').volume = 1
     towMaterIndex.forEach((index) => squares[index].classList.add('towMater'))
     randomLightningMcqueen()
     randomOilSpill()
@@ -66,8 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     squares[barrierIndex].classList.add('barrier')
   }
 
-
-
   function moveOutComes() {
     if (
       (towMaterIndex[0] + width >= width * width && direction === width) ||
@@ -78,14 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
       squares[towMaterIndex[0] + direction].classList.contains('barrier')
     ) {
 
+      document.querySelector('.crash').play(),
+      document.querySelector('.background').pause()
       const playAgain = window.confirm('Game Over! Try again?')
 
       if (!playAgain) {
         alert('Thank you for playing!')
-        location.reload()
+        window.location.reload()
       } else {
         alert('Click Start button to Play')
-        location.reload()
+        window.location.reload()
       }
     }
 
@@ -95,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (squares[towMaterIndex[0]].classList.contains('oilSpill')) {
       squares[towMaterIndex[0]].classList.remove('oilSpill')
+      document.querySelector('.splooge').play()
       randomOilSpill()
       score = score - 1000
       scoreDisplay.textContent = score
@@ -103,9 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
       interval = setInterval(moveOutComes, intervalTime)
     }
 
-
     if (squares[towMaterIndex[0]].classList.contains('lightningMcqueen')) {
       squares[towMaterIndex[0]].classList.remove('lightningMcqueen')
+      document.querySelector('.beep').play()
       squares[tail].classList.add('towMater')
       towMaterIndex.push(tail)
       randomLightningMcqueen()
@@ -129,10 +132,16 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (e.keyCode === 40) {
       direction = +width
     } else {
-      console.log('do nothing')
+      e.preventDefault()
+      return false
     }
   }
 
+  // function toggleSound() {
+  //   document.querySelector('audio').pause()
+  // }
+
   document.addEventListener('keyup', control)
   startBtn.addEventListener('click', startGame)
+  // audioBtn.addEventListener('click', toggleSound)
 })

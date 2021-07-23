@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const scoreDisplay = document.querySelector('span')
   const startBtn = document.querySelector('.start')
   const audioBtn = document.querySelector('.toggle-audio')
+  const btnUp = document.querySelector('.arrow-up')
+  const btnDown = document.querySelector('.arrow-down')
+  const btnLeft = document.querySelector('.arrow-left')
+  const btnRight = document.querySelector('.arrow-right')
 
   const currentIndex = 0
   let lightningMcqueenIndex = 0
@@ -151,4 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keyup', control)
   startBtn.addEventListener('click', startGame)
   audioBtn.addEventListener('click', muteBgMusic)
+  btnUp.addEventListener('click',() => direction = -width ) 
+  btnDown.addEventListener('click',() => direction = +width ) 
+  btnLeft.addEventListener('click',() => direction = -1 ) 
+  btnRight.addEventListener('click',() => direction = 1 )
 })

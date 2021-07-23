@@ -71,6 +71,26 @@ body {
   cursor: pointer;
 }
 
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+.top {
+  display: flex;
+  justify-content: center;
+}
+
+.mid {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+}
+
 .towMater {
   background-image: url('../assets/tow\ mater\ right.png');
   background-repeat: no-repeat;
